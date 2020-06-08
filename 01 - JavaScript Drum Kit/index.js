@@ -18,6 +18,7 @@ function playSound(e) {
     audioElement.currentTime = 0;
     audioElement.play();
     makeAnimation(document.querySelector(`.key[data-key="${e.keyCode}"]`));
+    console.log('ejecuta');
 }
 
 function makeAnimation(keyElement) {
@@ -79,16 +80,24 @@ function openWindow() {
 }
 
 function playMetronome() {
-    console.log('play');
+    //Should change this and make it dynamic (maybe a select?)
     const tinkAudioElement = document.querySelector('audio[data-key="76"]');
     const bpmInput = document.querySelector('.metronome__menu__form__bpm');
-    const bpmValue = 60000 / bpmInput.value;
+    const bpmValue = bpmInput.value;
+    //If the bpm wasn't specified, return
+    if (!bpmValue) return;
+    //Calculates the miliseconds between beats
+    const bpmInterval = 60000 / bpmValue;
+    stopMetronome();
+    this.classList.add('metronome__menu__form__button--active');
     bpmIntervalId = setInterval(() => {
+        tinkAudioElement.currentTime = 0;
         tinkAudioElement.play();
-    }, bpmValue);
+    }, bpmInterval);
 }
 
 function stopMetronome() {
+    document.querySelector('.metronome__menu__form__play').classList.remove('metronome__menu__form__button--active');
     clearInterval(bpmIntervalId);
 }
 
