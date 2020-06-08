@@ -105,7 +105,7 @@ function stopMetronome() {
 let bpmIntervalId;
 
 window.addEventListener('load', generateKeys);
-window.addEventListener('keyup', playSound);
+window.addEventListener('keydown', playSound);
 document.querySelector('.metronome__menu__button').addEventListener('click', openWindow);
 document.querySelector('.metronome__menu__form__play').addEventListener('click', playMetronome);
 document.querySelector('.metronome__menu__form__stop').addEventListener('click', stopMetronome);
