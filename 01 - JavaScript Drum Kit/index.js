@@ -72,6 +72,31 @@ async function generateKeys() {
     })
 }
 
+function openWindow() {
+    this.classList.toggle('active');
+    const form = document.querySelector('.metronome__menu__form');
+    form.style.display = form.style.display == 'flex' ? 'none' : 'flex';
+}
+
+function playMetronome() {
+    console.log('play');
+    const tinkAudioElement = document.querySelector('audio[data-key="76"]');
+    const bpmInput = document.querySelector('.metronome__menu__form__bpm');
+    const bpmValue = 60000 / bpmInput.value;
+    bpmIntervalId = setInterval(() => {
+        tinkAudioElement.play();
+    }, bpmValue);
+}
+
+function stopMetronome() {
+    clearInterval(bpmIntervalId);
+}
+
 //Main
+let bpmIntervalId;
+
 window.addEventListener('load', generateKeys);
 window.addEventListener('keyup', playSound);
+document.querySelector('.metronome__menu__button').addEventListener('click', openWindow);
+document.querySelector('.metronome__menu__form__play').addEventListener('click', playMetronome);
+document.querySelector('.metronome__menu__form__stop').addEventListener('click', stopMetronome);
